@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>DriveU Screenshot Replica (1272×2800)</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<style>
+  :root{
+    /* colors tuned to screenshot */
+    --bg:#f7f8fa;
+    --card:#ffffff;
+    --text:#14171F;
+    --text2:#5C667A;
+    --green:#00A26A;
+    --green-soft:#E6F6EE;
+    --green-border:#9BD9C1;
+    --divider:#D9DEE6;
+    --link:#0C6CDA;
+    --status-bg:#0B0B0B;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);font-family:Roboto,system-ui,Segoe UI,Helvetica,Arial;color:var(--text)}
+  .wrap{
+    max-width:1700px; margin:18px auto; padding:14px;
+    display:grid; grid-template-columns: 420px 1fr; gap:18px;
+  }
+  @media (max-width: 1200px){ .wrap{ grid-template-columns: 1fr; } }
+
+  /* ===== Left controls ===== */
+  .panel{
+    background:#fff;border:1px solid #e6e9ef;border-radius:14px;padding:16px;box-shadow:0 3px 10px rgba(0,0,0,.04)
+  }
+  .panel h2{margin:6px 0 12px;font-size:18px}
+  .panel label{display:block;font-size:12px;color:var(--text2);margin:10px 0 6px}
+  .panel input[type="text"],
+  .panel input[type="number"],
+  .panel input[type="datetime-local"],
+  .panel textarea,
+  .panel select{
+    width:100%;padding:10px 12px;border:1px solid #d6dce5;border-radius:10px;font:inherit;background:#fff
+  }
+  .panel textarea{min-height:70px;resize:vertical}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .actions{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+  .btn{padding:10px 14px;border-radius:10px;border:1px solid #ffffff;background:#fff;cursor:pointer;font-weight:600}
+  .btn.primary{background:var(--text);color:#fff;border-color:var(--text)}
+  .note{font-size:12px;color:var(--text2);margin-top:6px}
+
+  /* ===== Phone canvas (captured) ===== */
+  .canvas{
+    width:1272px;height:2800px; background:var(--card); position:relative; overflow:hidden;
+    border:1px solid #ffffff; margin:auto; box-shadow:0 10px 30px rgba(0,0,0,.12);
+  }
+
+  /* Top Android status bar (mocked to your screenshot) */
+  .status{
+    position:absolute; inset:0 auto auto 0; width:1272px; height:130px; /* tall-ish to match */
+    background:var(--status-bg); color:#fff; display:flex; align-items:flex-end; padding:0 30px 16px 30px;
+    font-weight:700;
+  }
+  .status .time{font-size:52px; letter-spacing:.5px}
+  .status .left-icons{display:flex; gap:22px; margin-left:20px; align-items:center}
+  .status .right{margin-left:auto; display:flex; align-items:center; gap:26px; font-size:28px; font-weight:500}
+  .status svg{display:block}
+
+  /* App header row */
+  .header{
+    position:absolute; top:130px; left:0; right:0;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:34px 44px 4px; color:var(--text);
+  }
+  .header .title{font-size:52px; font-weight:700; letter-spacing:.5px}
+  .header .help{font-size:40px; font-weight:700}
+  .back{width:48px;height:48px;display:grid;place-items:center}
+
+  /* Completed chip */
+  .chip{
+    position:absolute; top:330px; right:44px;
+    background:#0BA569; color:#fff; font-weight:700;
+    padding:18px 28px; border-radius:12px; font-size:38px;
+  }
+
+  /* Main content */
+  .content{ position:absolute; top:260px; left:44px; right:44px; }
+  .profile{ display:flex; gap:28px; align-items:center; }
+  .avatar{ width:152px;height:152px;border-radius:50%;object-fit:cover;background:#e9e9e9;border:2px solid #e6e6e6 }
+  .name{ font-size:66px; font-weight:700; line-height:1.1; padding-top:73px }
+  .sub{ font-size:46px; font-weight:500; margin-top:4px; display:flex; align-items:center; gap:14px}
+  .stars{ margin-top:10px }
+  .stars svg{ width:42px; height:42px; margin-right:6px }
+
+  .meta{ margin-top:58px; font-size:42px; color:var(--text2) }
+  .meta b{ color:var(--text); font-weight:700 }
+
+  .timeline{ margin-top:50px; display:grid; grid-template-columns: 34px 1fr; column-gap:18px }
+  .tl-dot{ width:24px;height:24px;border-radius:50%; margin-top:10px}
+  .tl-line{ width:6px; background:#C8D0DA; justify-self:center }
+  .tl-item{ margin-bottom:18px }
+  .tl-item h4{ margin:0 0 10px; font-size:44px; font-weight:700; color:#00000080 }
+  .tl-item p{ margin:0; font-size:42px; color:#545962d6 }
+
+  .section-divider{
+    border-top:6px dashed var(--divider);
+    margin:36px 0;
+  }
+
+  .small{ font-size:40px; color:var(--text2); }
+  .money{ font-size:96px; font-weight:700; display:flex; align-items:center; gap:18px; margin-top: 10px; color: #25164b; }
+  .check-round{
+    width:54px;height:54px;border-radius:50%;background:var(--green-soft);display:grid;place-items:center
+  }
+  .check-round svg{ width:34px;height:34px }
+
+  .links{ display:flex; gap:40px; flex-direction: column; align-items: flex-end; margin-top: 20px; position: absolute; top: 1035px; left: 885px;}
+  .link{ display:flex; align-items:center; gap:12px; font-size:40px; color:#00a26a; text-decoration: underline; }
+  .link svg{ width:40px;height:40px }
+
+  .plus{
+    margin-top:70px; background:var(--green-soft); border:4px solid var(--green-border); color:var(--green);
+    padding:26px 32px; border-radius:26px; font-size:46px; font-weight:700; width:100%; text-align:center
+  }
+
+  .pref{
+    margin-top:28px; border:4px solid var(--green); border-radius:26px; padding:28px 30px;
+  }
+  .pref h5{ margin:0 0 10px; font-size:48px; font-weight:700 }
+  .pref p{ margin:0; font-size:38px; color:var(--text2) }
+  .pref .row{ display:flex; align-items:center; gap:16px }
+  .square-check{ margin-left:auto; width:56px;height:56px; border-radius:12px; background:var(--green); display:grid; place-items:center }
+  .square-check svg{ width:36px;height:36px }
+
+  /* Huge bottom blank space to match screenshot */
+  .spacer{ height:1050px } /* tweak for how tall your details are */
+
+  /* Bottom gesture bar */
+  .gesture{
+    position:absolute; left:50%; transform:translateX(-50%);
+    bottom:22px; width:250px; height:16px; background:#0a0a0a; border-radius:14px; opacity:.9;
+  }
+
+  /* helper: the left control isn’t captured */
+  /* .hide-on-capture{} */
+</style>
+</head>
+<body>
+<div class="wrap">
+  <!-- Controls -->
+  <div class="panel hide-on-capture">
+    <h2>Fill details</h2>
+
+    <label>Profile photo (from your phone)</label>
+    <input id="inp_avatar" type="file" accept="image/*">
+
+    <div class="row">
+      <div>
+        <label>Driver name</label>
+        <input id="f_name" type="text" value="SAI VAIBHAV S">
+      </div>
+      <div>
+        <label>Trip type</label>
+        <input id="f_trip" type="text" value="Oneway Trip">
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <label>Booking ID</label>
+        <input id="f_bid" type="text" value="7D7F0C0A">
+      </div>
+      <div>
+        <label>Start datetime</label>
+        <input id="f_start_dt" type="datetime-local">
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <label>Duration text</label>
+        <input id="f_dur" type="text" value="2 hours 13 minutes">
+      </div>
+      <div>
+        <label>End time (e.g., 10:23AM)</label>
+        <input id="f_end_t" type="text" value="10:23AM">
+      </div>
+    </div>
+
+    <label>Start address</label>
+    <textarea id="f_from">WGPR+W2X, Hosakerehalli Main Rd, Hosakerehalli Layout, Banashankari 3rd Stage, Banashankari, Bengaluru, Karnataka 560085, India,</textarea>
+
+    <label>End address</label>
+    <textarea id="f_to">Dakshin Honda, Mysore Road, next to Rajarajeshwari, Arch, Nayanda Halli, Bengaluru, Karnataka, India</textarea>
+
+    <div class="row">
+      <div>
+        <label>Paid amount (₹)</label>
+        <input id="f_amt" type="number" value="376">
+      </div>
+      <div>
+        <label>Chip (status)</label>
+        <input id="f_chip" type="text" value="Completed">
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <label>Show Plus booking strip</label>
+        <select id="f_plus"><option value="on" selected>On</option><option value="off">Off</option></select>
+      </div>
+      <div>
+        <label>Preferred driver box</label>
+        <select id="f_pref"><option value="on" selected>On</option><option value="off">Off</option></select>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn" id="apply">Apply</button>
+      <button class="btn primary" id="download">Download JPG</button>
+    </div>
+    <div class="note">Everything on the right is captured at 1272×2800. Upload your photo from phone, then download.</div>
+  </div>
+
+  <!-- Canvas (captured) -->
+  <div class="canvas" id="capture">
+    <!-- Status bar -->
+    <div class="status">
+      <div class="time">4:14</div>
+      <div class="left-icons" aria-hidden="true">
+        <!-- fake camera icon -->
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="#fff" opacity=".9"><path d="M9.5 7l1.5-2h2l1.5 2H18a2 2 0 012 2v8a2 2 0 01-2 2H6a2 2 0 01-2-2V9a2 2 0 012-2h3.5zM12 18a4 4 0 100-8 4 4 0 000 8z"/></svg>
+        <!-- whatsapp bubble -->
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="#fff" opacity=".9"><path d="M20 12a8 8 0 10-14.32 5L4 21l4-1.6A8 8 0 1020 12zM8.8 9.9c.2-.5.4-.5.7-.5.1 0 .3 0 .4.3.1.3.6 1.1.6 1.2.1.1.1.2 0 .3-.1.1-.2.3-.3.4-.2.2-.4.4 0 .9.5.7 1.1 1.2 1.8 1.6.3.1.6.2.8 0 .2-.2.6-.7.8-.9.2-.2.3-.1.5 0l1.2.6c.3.1.5.2.6.3.1.2.1.4 0 .6-.2.6-.9 1.2-1.6 1.2-.4 0-1 0-2-.5a9.6 9.6 0 01-3.2-2.4c-.4-.5-1.2-1.6-1.2-2.6 0-.9.5-1.4.9-1.7z"/></svg>
+        <!-- instagram glyph -->
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="#fff" opacity=".9"><path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm5 5a5 5 0 100 10 5 5 0 000-10zm6.5-.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/></svg>
+      </div>
+      <div class="right" aria-hidden="true">
+        <!-- gps -->
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="#fff" opacity=".9"><path d="M12 8a4 4 0 100 8 4 4 0 000-8zm0-6a1 1 0 011 1v2a1 1 0 11-2 0V3a1 1 0 011-1zm0 18a1 1 0 011 1v2a1 1 0 11-2 0v-2a1 1 0 011-1zM3 11h2a1 1 0 110 2H3a1 1 0 110-2zm16 0h2a1 1 0 110 2h-2a1 1 0 110-2z"/></svg>
+        <span>Vo)</span><span>5G</span><span>LTE1</span>
+        <!-- signal -->
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="#fff" opacity=".9"><path d="M2 21h3v-3H2v3zm5 0h3v-6H7v6zm5 0h3v-9h-3v9zm5 0h3V6h-3v15z"/></svg>
+        <!-- battery 57% -->
+        <svg width="64" height="32" viewBox="0 0 48 24" fill="none" stroke="#fff" stroke-width="2" opacity=".95">
+          <rect x="2" y="4" width="38" height="16" rx="3"></rect>
+          <rect x="40" y="8" width="6" height="8" rx="2" fill="#fff" stroke="none"></rect>
+          <rect x="4" y="6" width="22" height="12" fill="#fff" stroke="none"></rect>
+        </svg>
+        <span>57%</span>
+      </div>
+    </div>
+
+    <!-- App header -->
+    <div class="header">
+      <div class="back">
+        <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 18l-6-6 6-6"></path>
+        </svg>
+      </div>
+      <div class="title">VIEW DETAILS</div>
+      <div class="help">HELP</div>
+    </div>
+
+    <div class="chip" id="chip">Completed</div>
+
+    <!-- Content -->
+    <div class="content">
+      <div class="profile">
+        <img id="avatar" class="avatar" alt="">
+        <div>
+          <div class="name" id="name">SAI VAIBHAV S</div>
+          <div class="sub"><span id="trip">Oneway Trip</span>
+            <!-- verified disc -->
+            <svg viewBox="0 0 24 24" width="46" height="46">
+              <circle cx="12" cy="12" r="10" fill="#DDF5EC"></circle>
+              <path d="M8 12l3 3 5-6" fill="none" stroke="#00A26A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="stars">
+            <!-- 5 stars green -->
+            <svg viewBox="0 0 24 24" fill="#00A26A"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            <svg viewBox="0 0 24 24" fill="#00A26A"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            <svg viewBox="0 0 24 24" fill="#00A26A"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            <svg viewBox="0 0 24 24" fill="#00A26A"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            <svg viewBox="0 0 24 24" fill="#00A26A"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21z"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="meta">
+        <div>BOOKING ID: <b id="bid">7D7F0C0A</b></div>
+        <div><span id="dtLabel">31st  Oct,</span> <b id="startTime">08:09AM</b></div>
+        <div>Duration: <span id="dur">2 hours 13 minutes</span></div>
+      </div>
+
+      <div class="timeline">
+        <div>
+          <div class="tl-dot" style="border:6px solid var(--green); background:#fff;"></div>
+          <div class="tl-line" style="height:170px; margin:10px 0;"></div>
+          <div class="tl-dot" style="background:var(--green)"></div>
+        </div>
+        <div>
+          <div class="tl-item">
+            <h4>Started @ <span id="startTime2">08:09AM</span> on <span id="dateText">Oct. 31st</span></h4>
+            <p id="from">WGPR+W2X, Hosakerehalli Main Rd, Hosakerehalli Layout, Banashankari 3rd Stage, Banashankari, Bengaluru, Karnataka 560085, India,</p>
+          </div>
+          <div class="tl-item">
+            <h4>Ended @ <span id="endTime">10:23AM</span> on <span id="dateText2">Oct. 31st</span></h4>
+            <p id="to">Dakshin Honda, Mysore Road, next to Rajarajeshwari, Arch, Nayanda Halli, Bengaluru, Karnataka, India</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <div class="small">Paid</div>
+      <div class="money">₹<span id="amt">376</span>.00
+        <span class="check-round">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#00A26A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 13l4 4L19 7"/>
+          </svg>
+        </span>
+      </div>
+
+      <div class="links">
+        <div class="link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 4v4h10V4"/></svg>
+          <span id="receiptLbl">View Receipt</span>
+        </div>
+        <div class="link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M4 7l8 6 8-6"/></svg>
+          <span id="invoiceLbl">Email Invoice</span>
+        </div>
+      </div>
+    
+    <div class="section-divider" style="margin-top: 75px;"></div>
+      
+            <div class="plus" id="plusStrip">Plus booking - driven by a Plus driver</div>
+
+      <div class="pref" id="prefBox">
+        <div class="row">
+          <h5>He is one of your Preferred Drivers</h5>
+          <div class="square-check">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg>
+          </div>
+        </div>
+        <p>He will be the first one to be notified of your booking as per his availability and proximity.</p>
+      </div>
+
+      <div class="spacer"></div>
+    </div>
+
+    <!-- bottom gesture -->
+    <div class="gesture"></div>
+  </div>
+</div>
+
+<script>
+  const $ = (id)=>document.getElementById(id);
+
+  // date helpers (kept same style)
+  function formatDateLabel(dt){
+    const months = ["Jan.","Feb.","Mar.","Apr.","May.","Jun.","Jul.","Aug.","Sept.","Oct.","Nov.","Dec."];
+    const d = dt.getDate();
+    const ord = (n)=> (n%10==1 && n%100!=11)? "st" : (n%10==2 && n%100!=12)? "nd" : (n%10==3 && n%100!=13)? "rd" : "th";
+    return `${months[dt.getMonth()]} ${d}${ord(d)}`;
+  }
+  function formatTime(dt){
+    let h = dt.getHours(), m = dt.getMinutes();
+    const ampm = h>=12 ? "PM" : "AM";
+    h = h%12; if(h===0) h = 12;
+    return `${h}:${String(m).padStart(2,"0")}${ampm}`;
+  }
+
+  // map simple fields to canvas
+  const bindings = [
+    ["f_name","name"],
+    ["f_trip","trip"],
+    ["f_bid","bid"],
+    ["f_dur","dur"],
+    ["f_end_t","endTime"],
+    ["f_from","from"],
+    ["f_to","to"],
+    ["f_amt","amt"],
+    ["f_chip","chip"]
+  ];
+
+  function apply(){
+    bindings.forEach(([a,b])=>{ $(b).textContent = $(a).value; });
+    $("plusStrip").style.display = $("f_plus").value==="on" ? "block" : "none";
+    $("prefBox").style.display  = $("f_pref").value==="on" ? "block" : "none";
+
+    const v = $("f_start_dt").value;
+    if(v){
+      const dt = new Date(v);
+      $("startTime").textContent  = formatTime(dt);
+      $("startTime2").textContent = formatTime(dt);
+      const label = formatDateLabel(dt);
+      $("dtLabel").textContent = `${label.replace(".","")} ,`;
+      $("dateText").textContent  = label;
+      $("dateText2").textContent = label;
+    }
+  }
+  $("apply").addEventListener("click", apply);
+
+  // default datetime now
+  (function initNow(){
+    const now = new Date();
+    const iso = new Date(now.getTime()-now.getTimezoneOffset()*60000).toISOString().slice(0,16);
+    $("f_start_dt").value = iso;
+    apply();
+  })();
+
+  // avatar from phone
+  $("inp_avatar").addEventListener("change", (e)=>{
+    const file = e.target.files?.[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = ()=>{ $("avatar").src = reader.result; };
+    reader.readAsDataURL(file);
+  });
+
+  // download JPG
+  $("download").addEventListener("click", async()=>{
+    apply();
+    const node = $("capture");
+    const canvas = await html2canvas(node, {scale:1, backgroundColor:null}); // canvas already 1272x2800
+    const dataURL = canvas.toDataURL("image/jpeg", 0.92);
+    const a = document.createElement("a");
+    a.href = dataURL;
+    a.download = "driveu-screenshot.jpg";
+    a.click();
+  });
+</script>
+</body>
+</html>
