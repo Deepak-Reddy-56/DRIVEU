@@ -91,8 +91,8 @@
   .stars{ margin-top:10px }
   .stars svg{ width:42px; height:42px; margin-right:6px }
 
-  .meta{ margin-top:58px; font-size:42px; color:var(--text2) }
-  .meta b{ color:var(--text); font-weight:700 }
+  .meta{ margin-top:58px; font-size:42px; color:#211649 }
+  .meta b{ color:var(--text) }
 
   .timeline{ margin-top:50px; display:grid; grid-template-columns: 34px 1fr; column-gap:18px }
   .tl-dot{ width:24px;height:24px;border-radius:50%; margin-top:10px}
@@ -144,6 +144,9 @@
     color: #00A26A;
   }
 
+  #dtLabel{
+    margin-left: 10px;
+  }
   /* helper: the left control isn’t captured */
   /* .hide-on-capture{} */
 </style>
@@ -293,8 +296,8 @@
       </div>
 
       <div class="meta">
-        <div>BOOKING ID: <b id="bid">7D7F0C0A</b></div>
-        <div><span id="dtLabel">31st  Oct,</span> <b id="startTime">08:09AM</b></div>
+        <div>BOOKING ID: <span id="bid">7D7F0C0A</span></div>
+        <div><span id="dtLabel">31st  Oct,</span> <span id="startTime">08:09AM</span></div>
         <div>Duration: <span id="dur">2 hours 13 minutes</span></div>
       </div>
 
