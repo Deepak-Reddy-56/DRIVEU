@@ -140,6 +140,10 @@
     bottom:22px; width:250px; height:16px; background:#0a0a0a; border-radius:14px; opacity:.9;
   }
 
+  #infoButton{
+    color: #00A26A;
+  }
+
   /* helper: the left control isn’t captured */
   /* .hide-on-capture{} */
 </style>
@@ -157,6 +161,7 @@
       <div>
         <label>Driver name</label>
         <input id="f_name" type="text" value="SAI VAIBHAV S">
+        
       </div>
       <div>
         <label>Trip type</label>
@@ -237,7 +242,7 @@
       <div class="right" aria-hidden="true">
         <!-- gps -->
         <svg width="34" height="34" viewBox="0 0 24 24" fill="#fff" opacity=".9"><path d="M12 8a4 4 0 100 8 4 4 0 000-8zm0-6a1 1 0 011 1v2a1 1 0 11-2 0V3a1 1 0 011-1zm0 18a1 1 0 011 1v2a1 1 0 11-2 0v-2a1 1 0 011-1zM3 11h2a1 1 0 110 2H3a1 1 0 110-2zm16 0h2a1 1 0 110 2h-2a1 1 0 110-2z"/></svg>
-        <span>Vo)</span><span>5G</span><span>LTE1</span>
+        <span>VoLTE</span><span>5G</span><span>LTE1</span>
         <!-- signal -->
         <svg width="44" height="44" viewBox="0 0 24 24" fill="#fff" opacity=".9"><path d="M2 21h3v-3H2v3zm5 0h3v-6H7v6zm5 0h3v-9h-3v9zm5 0h3V6h-3v15z"/></svg>
         <!-- battery 57% -->
@@ -340,6 +345,14 @@
       <div class="pref" id="prefBox">
         <div class="row">
           <h5>He is one of your Preferred Drivers</h5>
+
+        <span id="infoButton">
+          <svg xmlns="http://www.w3.org/2000/svg" width="45" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
+          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+          <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+        </svg>
+
+    </span>
           <div class="square-check">
             <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg>
           </div>
