@@ -31,6 +31,8 @@
     bindings.forEach(([a,b])=>{ $(b).textContent = $(a).value; });
     $("plusStrip").style.display = $("f_plus").value==="on" ? "block" : "none";
     $("prefBox").style.display  = $("f_pref").value==="on" ? "block" : "none";
+    $("plusStrip").textContent = $("f_plus_text").value;
+
 
     const v = $("f_start_dt").value;
     if(v){
