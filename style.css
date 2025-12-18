@@ -87,9 +87,17 @@
   .meta b{ color:var(--text) }
 
   .timeline{ margin-top:50px; display:grid; grid-template-columns: 34px 1fr; column-gap:18px }
-  .tl-dot{ width:24px;height:24px;border-radius:50%; margin-top:10px}
-  .tl-line{ width:6px; background:#C8D0DA; justify-self:center }
-  .tl-item{ margin-bottom:18px }
+  .tl-dot{ width:25px;height:25px;border-radius:50%; margin-top: -26px; margin-left: 6px;}
+  .tl-line {
+    width: 6px;
+    margin-left: 3px;
+    background-image: linear-gradient(to bottom, #61656b 50%, rgba(255,255,255,0) 0%);
+    background-position: top;
+    background-size: 6px 38px;
+    background-repeat: repeat-y;
+    justify-self: center;
+}
+  .tl-item{ margin-bottom:47px }
   .tl-item h4{ margin:0 0 10px; font-size:44px; font-weight:700; color:#00000080 }
   .tl-item p{ margin:0; font-size:42px; color:#545962d6 }
 
@@ -117,10 +125,12 @@
   .pref{
     margin-top:50px; border:4px solid var(--green); border-radius:26px; padding:28px 30px;
   }
-  .pref h5{ margin:0 0 10px; font-size:48px; font-weight:700 }
-  .pref p{ margin:0; font-size:38px; color:var(--text2) }
+  .pref h5{ margin:0 0 20px; font-size:48px; font-weight:700 }
+  .pref p{ margin:0; font-size:38px; color:#7b828e; margin-right: 405px;line-height: 45px; font-family: sans-serif; }
   .pref .row{ display:flex; align-items:center; gap:16px }
-  .square-check{ margin-left:auto; width:56px;height:56px; border-radius:12px; background:var(--green); display:grid; place-items:center }
+  .pref h5 span { display: block;}
+
+  .square-check{ margin-left:auto; width:56px;height:56px; border-radius:12px; background:#bfc7c4b8; display:grid; place-items:center;margin-top: 70px; }
   .square-check svg{ width:36px;height:36px }
 
   /* Huge bottom blank space to match screenshot */
