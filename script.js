@@ -5,7 +5,7 @@
     const months = ["Jan.","Feb.","Mar.","Apr.","May.","Jun.","Jul.","Aug.","Sept.","Oct.","Nov.","Dec."];
     const d = dt.getDate();
     const ord = (n)=> (n%10==1 && n%100!=11)? "st" : (n%10==2 && n%100!=12)? "nd" : (n%10==3 && n%100!=13)? "rd" : "th";
-    return `${months[dt.getMonth()]} ${d}${ord(d)}`;
+    return `${d}${ord(d)} ${months[dt.getMonth()]}`;
   }
   function formatTime(dt){
     let h = dt.getHours(), m = dt.getMinutes();
