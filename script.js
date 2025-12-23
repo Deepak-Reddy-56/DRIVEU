@@ -11,7 +11,8 @@
     let h = dt.getHours(), m = dt.getMinutes();
     const ampm = h>=12 ? "PM" : "AM";
     h = h%12; if(h===0) h = 12;
-    return `${h}:${String(m).padStart(2,"0")}${ampm}`;
+    const two = n => String(n).padStart(2,"0");
+    return `${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}${ampm}`;
   }
 
   // map simple fields to canvas
