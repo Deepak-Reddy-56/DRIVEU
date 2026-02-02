@@ -87,7 +87,7 @@
   .meta b{ color:var(--text) }
 
   .timeline{ margin-top:50px; display:grid; grid-template-columns: 34px 1fr; column-gap:18px }
-  .tl-dot{ width:25px;height:25px;border-radius:50%; margin-top: -26px; margin-left: 6px;}
+  .tl-dot{ width:25px;height:25px;border-radius:50%; margin-top: 20px; margin-left: 6px;}
   .tl-line {
     width: 6px;
     margin-left: 3px;
