@@ -130,7 +130,7 @@
   .pref .row{ display:flex; align-items:center; gap:16px }
   .pref h5 span { display: block;}
 
-  .square-check{ margin-left:auto; width:56px;height:56px; border-radius:12px; background:#bfc7c4b8; display:grid; place-items:center;margin-top: 70px; }
+  .square-check{ margin-left:auto; width:56px;height:56px; border-radius:12px; background:#00a26a; display:grid; place-items:center;margin-top: 70px; }
   .square-check svg{ width:36px;height:36px }
 
   /* Huge bottom blank space to match screenshot */
