@@ -83,7 +83,7 @@
   .stars{ margin-top:10px }
   .stars svg{ width:60px; height:60px; margin-right:6px }
 
-  .meta{ margin-top:58px; font-size:42px; color:#211649 }
+  .meta{ margin-top:58px; font-size:42px; font-weight: 420; color:#211649 }
   .meta b{ color:var(--text) }
 
   .timeline{ margin-top:50px; display:grid; grid-template-columns: 34px 1fr; column-gap:18px }
