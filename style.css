@@ -81,7 +81,7 @@
   .name{ font-size:66px; font-weight:700; line-height:1.1; padding-top:73px }
   .sub{ font-size:46px; font-weight:500; margin-top:4px; display:flex; align-items:center; gap:14px}
   .stars{ margin-top:10px }
-  .stars svg{ width:42px; height:42px; margin-right:6px }
+  .stars svg{ width:60px; height:60px; margin-right:6px }
 
   .meta{ margin-top:58px; font-size:42px; color:#211649 }
   .meta b{ color:var(--text) }
